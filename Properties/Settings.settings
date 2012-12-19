@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SharePosh.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SharePosh_SOAP_Webs_Webs" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://vmfp-sp2k13/_vti_bin/Webs.asmx</Value>
+    </Setting>
+    <Setting Name="SharePosh_SOAP_Lists_Lists" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://vmfp-sp2k13/_vti_bin/Lists.asmx</Value>
+    </Setting>
+    <Setting Name="SharePosh_SOAP_SiteData_SiteData" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://vmfp-sp2k13/_vti_bin/SiteData.asmx</Value>
+    </Setting>
+    <Setting Name="SharePosh_SOAP_Copy_Copy" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://vmfp-sp2k13/_vti_bin/Copy.asmx</Value>
+    </Setting>
+    <Setting Name="SharePosh_SOAP_Versions_Versions" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://vmfp-sp2k13/_vti_bin/Versions.asmx</Value>
+    </Setting>
+    <Setting Name="SharePosh_SOAP_Sites_Sites" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://vmfp-sp2k13/_vti_bin/Sites.asmx</Value>
+    </Setting>
+    <Setting Name="SharePosh_SOAP_Dws_Dws" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://vmfp-sp2k13/_vti_bin/Dws.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,57 @@
+﻿<Web Name="" Title="Portal Site" ID="01F3EAB9-36DC-48D4-BF70-F97B2F7D238D">
+  <Web Name="team" Title="Team Site" ID="7A450A20-2119-4835-91E8-8264F9D6D0FC">
+    <Web Name="search" Title="Search Portal" ID="C0433174-6DD9-4946-8708-55EB2B860033">
+      <List Name="SitePages" Title="Site Pages" ID="A0D054E0-E1A3-4500-8858-89E5FF6F21E4"
+         Created="2012-11-30T17:32:13Z">
+        <Item Type="File" Name="Home.aspx" ID="1" UniqueID="2ABB0C62-C1E1-4ABA-B4D7-8606E1BA2453"
+          Created="2012-11-30T17:23:46Z">
+          <Version>
+            PGh0bWw+PGhlYWQ+PHRpdGxlPlNlYXJjaDwvdGl0bGU+PC9oZWFkPjwvaHRtbD4=
+          </Version>
+        </Item>
+        <Item Type="File" Name="Results.aspx" ID="2" UniqueID="0ABA26F4-FDAA-49C0-98E0-DF0947A6A3A4"
+          Created="2012-11-30T17:26:34Z">
+          <Version>
+            PGh0bWw+PGhlYWQ+PHRpdGxlPlJlc3VsdHM8L3RpdGxlPjwvaGVhZD48L2h0bWw+
+          </Version>
+        </Item>
+      </List>
+    </Web>
+    <List Name="Shared Documents" Title="Documents" ID="95D7B5B4-DEFC-4DAC-907E-31256868C6F7"
+        Created="2012-11-30T17:26:57Z">
+      <Item Type="Folder" Name="First Folder" ID="1" UniqueID="C72C13A3-BF45-4D3C-9B7B-85E59F2C3993"
+         Created="2012-11-30T17:27:36Z">
+        <Item Type="File" Name="Description.txt" ID="2" UniqueID="ADF7DB22-498F-40FB-B025-29598C8EFCDE"
+          Created="2012-11-30T17:28:11Z" Modified="2012-11-30T17:29:02Z">
+          <Version Number="1">
+            b2xk
+          </Version>
+          <Version Number="2">
+            bmV3
+          </Version>
+        </Item>
+      </Item>
+      <Item Type="File" Name="Overview.txt" ID="3" UniqueID="F3B1DFCB-40EB-40A6-B798-28C5759247AD"
+         Created="2012-11-30T17:30:28Z">
+        <Version Number="1">
+          dGVzdA==
+        </Version>
+      </Item>
+      <Item Type="Folder" Name="Second Folder" ID="4" UniqueID="83E9C315-DF5B-4258-8ED5-1622FE2C74CD"
+         Created="2012-11-30T17:29:34Z">
+      </Item>
+    </List>
+    <List Name="Lists/Announcements" Title="Announcements" ID="6E3D4FC4-F9AD-4819-B82D-0DC7A814294D"
+        Created="2012-11-30T17:29:16Z">
+      <Item Name="Welcome to the Team Site" ID="1" UniqueID="69BE7892-FDCE-4987-B4D0-5BCE219BEA13"
+         Created="2012-11-30T17:30:52Z" />
+    </List>
+  </Web>
+  <Web Name="dev" Title="Developer Site" ID="C28E8E4E-3D81-4020-9FFA-2EA237203767">
+    <List Name="Apps" ID="250AF2D0-0E1D-4113-A2D5-3948C1803729"
+        Created="2012-11-30T17:31:24Z">
+    </List>
+  </Web>
+  <Web Name="blank" Title="Blank Site" ID="A13B5DD1-2B0A-48B4-9E31-A3838FACD73D">
+  </Web>
+</Web>

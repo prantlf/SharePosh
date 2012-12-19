@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- Copyright (C) 2012 Ferdinand Prantl <prantlf@gmail.com>                  -->
+<!-- All rights reserved.                                                     -->
+<!--                                                                          -->
+<!-- This file is part of SharePosh - SharePoint drive provider for PowerShell. -->
+<!--                                                                          -->
+<!-- This program is free software: you can redistribute it and/or modify     -->
+<!-- it under the terms of the GNU General Public License as published by     -->
+<!-- the Free Software Foundation, either version 3 of the License, or        -->
+<!-- (at your option) any later version.                                      -->
+<!--                                                                          -->
+<!-- This program is distributed in the hope that it will be useful,          -->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of           -->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            -->
+<!-- GNU General Public License for more details.                             -->
+<!--                                                                          -->
+<!-- You should have received a copy of the GNU General Public License        -->
+<!-- along with this program.  If not, see <http://www.gnu.org/licenses/>.    -->
+
+<Configuration>
+  <SelectionSets>
+    <SelectionSet>
+      <Name>SharePoshTypes</Name>
+      <Types>
+        <TypeName>SharePosh.WebInfo</TypeName>
+        <TypeName>SharePosh.WebFolderInfo</TypeName>
+        <TypeName>SharePosh.ListInfo</TypeName>
+        <TypeName>SharePosh.FolderInfo</TypeName>
+        <TypeName>SharePosh.FileInfo</TypeName>
+        <TypeName>SharePosh.ItemInfo</TypeName>
+      </Types>
+    </SelectionSet>
+  </SelectionSets>
+
+  <ViewDefinitions>
+    <View>
+      <Name>children</Name>
+      <ViewSelectedBy>
+        <SelectionSetName>SharePoshTypes</SelectionSetName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <PropertyName>PSParentPath</PropertyName>
+      </GroupBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Type</Label>
+            <Width>9</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>PSChildName</Label>
+            <Width>20</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Title</Label>
+            <Width>20</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Size</Label>
+            <Width>9</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>LastModified</Label>
+            <Width>16</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <EntrySelectedBy>
+              <TypeName>SharePosh.ListInfo</TypeName>
+            </EntrySelectedBy>
+            <Wrap/>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>
+                  $type = $_.GetType().Name;
+                  return $type.Substring(0, $type.Length - 4);
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>PSChildName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Title</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  $size = '';
+                  if ($_.ItemCount -gt 0) {
+                    $size = $_.ItemCount;
+                  }
+                  return $size;
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  [String]::Format("{0,10} {1,5}", $_.LastModified.ToString("d"), $_.LastModified.ToString("t"))
+                </ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+          <TableRowEntry>
+            <EntrySelectedBy>
+              <TypeName>SharePosh.FolderInfo</TypeName>
+            </EntrySelectedBy>
+            <Wrap/>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>
+                  $type = $_.GetType().Name;
+                  return $type.Substring(0, $type.Length - 4);
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>PSChildName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Title</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  $size = '';
+                  if ($_.ChildCount -gt 0) {
+                    $size = $_.ChildCount;
+                  }
+                  return $size;
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  [String]::Format("{0,10} {1,5}", $_.LastModified.ToString("d"), $_.LastModified.ToString("t"))
+                </ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+          <TableRowEntry>
+            <EntrySelectedBy>
+              <TypeName>SharePosh.FileInfo</TypeName>
+            </EntrySelectedBy>
+            <Wrap/>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>
+                  $type = $_.GetType().Name;
+                  return $type.Substring(0, $type.Length - 4);
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>PSChildName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Title</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Size</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  [String]::Format("{0,10} {1,5}", $_.LastModified.ToString("d"), $_.LastModified.ToString("t"))
+                </ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+          <TableRowEntry>
+            <EntrySelectedBy>
+              <TypeName>SharePosh.ItemInfo</TypeName>
+            </EntrySelectedBy>
+            <Wrap/>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>
+                  $type = $_.GetType().Name;
+                  return $type.Substring(0, $type.Length - 4);
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>PSChildName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Title</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem />
+              <TableColumnItem>
+                <ScriptBlock>
+                  [String]::Format("{0,10} {1,5}", $_.LastModified.ToString("d"), $_.LastModified.ToString("t"))
+                </ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+          <TableRowEntry>
+            <Wrap/>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>
+                  $type = $_.GetType().Name;
+                  return $type.Substring(0, $type.Length - 4);
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>PSChildName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Title</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem />
+              <TableColumnItem />
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>children</Name>
+      <ViewSelectedBy>
+        <SelectionSetName>SharePoshTypes</SelectionSetName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <PropertyName>PSParentPath</PropertyName>
+      </GroupBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <EntrySelectedBy>
+              <TypeName>SharePosh.WebFolderInfo</TypeName>
+            </EntrySelectedBy>
+            <ListItems>
+              <ListItem>
+                <PropertyName>PSChildName</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+          <ListEntry>
+            <EntrySelectedBy>
+              <TypeName>SharePosh.ListInfo</TypeName>
+            </EntrySelectedBy>
+            <ListItems>
+              <ListItem>
+                <PropertyName>PSChildName</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Title</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>ItemCount</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Created</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>LastModified</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>LastDeleted</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+          <ListEntry>
+            <EntrySelectedBy>
+              <TypeName>SharePosh.FolderInfo</TypeName>
+            </EntrySelectedBy>
+            <ListItems>
+              <ListItem>
+                <PropertyName>PSChildName</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>ChildCount</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Created</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>LastModified</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+          <ListEntry>
+            <EntrySelectedBy>
+              <TypeName>SharePosh.FileInfo</TypeName>
+            </EntrySelectedBy>
+            <ListItems>
+              <ListItem>
+                <PropertyName>PSChildName</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Size</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Created</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>LastModified</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+          <ListEntry>
+            <EntrySelectedBy>
+              <TypeName>SharePosh.ItemInfo</TypeName>
+            </EntrySelectedBy>
+            <ListItems>
+              <ListItem>
+                <PropertyName>PSChildName</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Created</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>LastModified</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>PSChildName</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Title</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+    <View>
+      <Name>children</Name>
+      <ViewSelectedBy>
+        <SelectionSetName>SharePoshTypes</SelectionSetName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <PropertyName>PSParentPath</PropertyName>
+      </GroupBy>
+      <WideControl>
+        <WideEntries>
+          <WideEntry>
+            <EntrySelectedBy>
+              <TypeName>SharePosh.WebInfo</TypeName>
+            </EntrySelectedBy>
+            <WideItem>
+              <PropertyName>PSChildName</PropertyName>
+              <FormatString>[{0}]</FormatString>
+            </WideItem>
+          </WideEntry>
+          <WideEntry>
+            <EntrySelectedBy>
+              <TypeName>SharePosh.ListInfo</TypeName>
+            </EntrySelectedBy>
+            <WideItem>
+              <PropertyName>PSChildName</PropertyName>
+              <FormatString>[{0}]</FormatString>
+            </WideItem>
+          </WideEntry>
+          <WideEntry>
+            <EntrySelectedBy>
+              <TypeName>SharePosh.FolderInfo</TypeName>
+            </EntrySelectedBy>
+            <WideItem>
+              <PropertyName>PSChildName</PropertyName>
+              <FormatString>[{0}]</FormatString>
+            </WideItem>
+          </WideEntry>
+          <WideEntry>
+            <WideItem>
+              <PropertyName>PSChildName</PropertyName>
+            </WideItem>
+          </WideEntry>
+        </WideEntries>
+      </WideControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

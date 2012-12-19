@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A93553DC-D465-48AD-A058-0BA9E8A825A2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SharePosh</RootNamespace>
+    <AssemblyName>SharePosh</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>SharePosh.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Management.Automation" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Command\ClearDriveCache.cs" />
+    <Compile Include="Connector\CacheConnector.cs" />
+    <Compile Include="Connector\Info.cs" />
+    <Compile Include="Utility\ConfigurableComparer.cs" />
+    <Compile Include="Connector\Connector.cs" />
+    <Compile Include="Provider\ContentWriter.cs" />
+    <Compile Include="Command\ConvertToBytes.cs" />
+    <Compile Include="Command\ConnectedCmdlet.cs" />
+    <Compile Include="Command\ListCmdlet.cs" />
+    <Compile Include="Command\LoggingCmdlet.cs" />
+    <Compile Include="Command\GetWebRegionalSettings.cs" />
+    <Compile Include="Command\GetWebTemplates.cs" />
+    <Compile Include="Command\GetListTemplates.cs" />
+    <Compile Include="Connector\DriveConnector .cs" />
+    <Compile Include="Utility\ValueUtility.cs" />
+    <Compile Include="Utility\PathUtility.cs" />
+    <Compile Include="Utility\Log.cs" />
+    <Compile Include="Web References\SOAP.Dws\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SOAP.Sites\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Connector\XmlConnector.cs" />
+    <Compile Include="Command\GetServerVersion.cs" />
+    <Compile Include="Web References\SOAP.Copy\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SOAP.Versions\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Connector\TestConnector.cs" />
+    <Compile Include="Extension\Extensions.cs" />
+    <None Include="LICENSE" />
+    <Compile Include="Provider\DynamicParameters.cs" />
+    <Compile Include="Connector\Cache.cs" />
+    <Compile Include="Provider\DriveInfo.cs" />
+    <Compile Include="Provider\DriveProvider.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Module\SnapIn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\ContentReader.cs" />
+    <Compile Include="Connector\SOAPConnector.cs" />
+    <Compile Include="Utility\XmlUtility.cs" />
+    <Compile Include="Web References\SOAP.Lists\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SOAP.SiteData\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SOAP.Webs\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="SharePosh.snk" />
+    <None Include="Module\SharePosh.format.ps1xml" />
+    <None Include="Module\SharePosh.psd1" />
+    <None Include="README" />
+    <None Include="Web References\SOAP.Copy\Copy.wsdl" />
+    <None Include="Web References\SOAP.Copy\CopyResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SOAP.Copy\FieldInformation.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SOAP.Copy\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SOAP.Dws\Dws.wsdl" />
+    <None Include="Web References\SOAP.Dws\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SOAP.Lists\Lists.wsdl" />
+    <None Include="Web References\SOAP.Lists\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SOAP.SiteData\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SOAP.SiteData\SiteData.wsdl" />
+    <None Include="Web References\SOAP.SiteData\_sFPUrl.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SOAP.SiteData\_sList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SOAP.SiteData\_sListMetadata.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SOAP.SiteData\_sListWithTime.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SOAP.SiteData\_sProperty.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SOAP.SiteData\_sSiteMetadata.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SOAP.SiteData\_sWebMetadata.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SOAP.SiteData\_sWebWithTime.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SOAP.Sites\CreateWebResponseCreateWebResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SOAP.Sites\FormDigestInformation.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SOAP.Sites\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SOAP.Sites\Sites.wsdl" />
+    <None Include="Web References\SOAP.Sites\Template.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SOAP.Versions\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SOAP.Versions\Versions.wsdl" />
+    <None Include="Web References\SOAP.Webs\CustomizedPageStatus.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SOAP.Webs\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SOAP.Webs\Webs.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Module\about_SharePosh.help.txt" />
+    <None Include="Web References\SOAP.Dws\Dws.disco" />
+    <EmbeddedResource Include="Resources\ServerReleases.xml" />
+    <EmbeddedResource Include="Resources\FakeSite.xml" />
+    <Content Include="Module\SharePosh.dll-Help.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Web References\SOAP.Sites\Sites.disco" />
+    <None Include="Web References\SOAP.Versions\Versions.disco" />
+    <None Include="Web References\SOAP.Copy\Copy.disco" />
+    <None Include="Web References\SOAP.SiteData\SiteData.disco" />
+    <None Include="Web References\SOAP.Lists\Lists.disco" />
+    <None Include="Web References\SOAP.Webs\Webs.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://vmfp-sp2k13/_vti_bin/Copy.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SOAP.Copy\</RelPath>
+      <UpdateFromURL>http://vmfp-sp2k13/_vti_bin/Copy.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>SharePosh_SOAP_Copy_Copy</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://vmfp-sp2k13/_vti_bin/Dws.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SOAP.Dws\</RelPath>
+      <UpdateFromURL>http://vmfp-sp2k13/_vti_bin/Dws.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>SharePosh_SOAP_Dws_Dws</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://vmfp-sp2k13/_vti_bin/Lists.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SOAP.Lists\</RelPath>
+      <UpdateFromURL>http://vmfp-sp2k13/_vti_bin/Lists.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>SharePosh_SOAP_Lists_Lists</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://vmfp-sp2k13/_vti_bin/SiteData.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SOAP.SiteData\</RelPath>
+      <UpdateFromURL>http://vmfp-sp2k13/_vti_bin/SiteData.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>SharePosh_SOAP_SiteData_SiteData</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://vmfp-sp2k13/_vti_bin/Sites.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SOAP.Sites\</RelPath>
+      <UpdateFromURL>http://vmfp-sp2k13/_vti_bin/Sites.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>SharePosh_SOAP_Sites_Sites</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://vmfp-sp2k13/_vti_bin/Versions.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SOAP.Versions\</RelPath>
+      <UpdateFromURL>http://vmfp-sp2k13/_vti_bin/Versions.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>SharePosh_SOAP_Versions_Versions</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://vmfp-sp2k13/_vti_bin/Webs.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SOAP.Webs\</RelPath>
+      <UpdateFromURL>http://vmfp-sp2k13/_vti_bin/Webs.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>SharePosh_SOAP_Webs_Webs</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y/i "$(TargetDir)SharePosh.dll" "$(TargetDir)SharePosh\"
+xcopy /y/i "$(ProjectDir)Module\SharePosh.psd1" "$(TargetDir)SharePosh"
+xcopy /y/i "$(ProjectDir)Module\SharePosh.format.ps1xml" "$(TargetDir)SharePosh"
+xcopy /y/i "$(ProjectDir)Module\$(TargetFileName)-Help.xml" "$(TargetDir)SharePosh"
+xcopy /y/i "$(ProjectDir)Module\about_SharePosh.help.txt" "$(TargetDir)SharePosh"
+xcopy /y/i "$(ProjectDir)README" "$(TargetDir)"
+xcopy /y/i "$(ProjectDir)LICENSE" "$(TargetDir)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,57 @@
+NAME
+  SharePosh 1.0 - SharePoint Drive Provider for PowerShell
+
+SYNOPSIS
+  PowerShell module to make the SharePoint content accessible in the same way
+  as you work with the local file system.
+
+DESCRIPTION
+  SharePosh consists of a PowerShell drive provider for SharePoint content
+  and a set of cmdlets performing related tasks. The provider supports
+  navigation starting on SharePoint web site and following to subsites,
+  lists, folders, files or common list items. Reading and writing of file
+  version content is supported. Getting values of list item is supported,
+  setting values is in development. The provider and the cmdlets use web
+  services to communicate with the SharePoint server. Most functionality
+  is supported with all SharePoint versions 2007, 2010 and 2013 and with
+  both WSS and MOSS (called Foundation and Server in newer product versions).
+  Just creating a new web site works only with SharePoint 2013.
+
+INSTALLATION
+  Building the project will produce a folder SharePosh in bin/Debug or
+  bin/Release according to your configuration selection. Copy this folder
+  either to %USERPROFILE%\Documents\WindowsPowerShell\Modules\ or to
+  %WINDIR%\System32\WindowsPowerShell\v1.0\Modules\ depending on if you want
+  to use the module privately or share it with other users on your machine.
+  If you copy the folder to other path make sure that it is included in the
+  environment variable PSModulePath.
+
+USAGE
+  Load the SharePosh module in your PowerShell console by the command
+  Import-Module SharePosh. List the available cmdlets by the command
+  Get-Command -Module SharePosh. Read the help about the PowerShell drive
+  provider for SharePoint by the command Get-Help SharePosh.
+
+SOURCE
+  Root directory contains control files for the Visual Studio project and
+  basic description of the content with the license. Other directories:
+    Command        - cmdlets and their base classes
+    Connector      - SharePoint model based on SOAP web services including
+                     base classes and an in-memory testing implementation
+    Extension      - extension methods for strings, primitive and other types
+    Module         - PowerShell module descriptor, type formatters, help and
+                     other module-related files
+    Properties     - assembly information and default connectoin settings
+    Provider       - the drive provider itself with information, dynamic
+                     parameters and content reader/writer classes
+    Resources      - embedded resources for the testing drive provider
+    Test           - unit test dependent on the Microsoft Test framework
+    Utility        - path manipulation, logging, case-insensitive comparison
+                     and other low-level utility classes
+    Web References - generated proxies for SharePoint web services
+
+AUTHOR
+  Ferdinand Prantl <prantlf@gmail.com>
+
+LICENSE
+  GPL (See the enclosed LICENSE file.) 

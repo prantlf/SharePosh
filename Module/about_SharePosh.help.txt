@@ -1,0 +1,34 @@
+﻿TOPIC
+    about_SharePosh
+
+SHORT DESCRIPTION
+    This article introduces the PowerShell suppport for accessing SharePoint content using SharePosh - SharePoint Drive Provider for PowerShell.
+
+LONG DESCRIPTION
+    SharePosh consists of a PowerShell drive provider for SharePoint content and a set of cmdlets performing related tasks. The provider supports navigation starting on SharePoint web site and following to subsites, lists, folders, files or common list items. Reading and writing of file version content is supported. Getting values of list item is supported, setting values is in development. The provider and the cmdlets use web services to communicate with the SharePoint server. Most functionality is supported with all SharePoint versions 2007, 2010 and 2013 and with both WSS and MOSS (called Foundation and Server in newer product versions). Just creating a new web site works only with SharePoint 2013.
+
+  SharePosh Cmdlets
+
+      Cmdlet (Alias)            Description
+      ------------------------  ------------------------------------------
+      ConvertTo-Bytes           Converts an array of bytes or other objects
+                                to a real byte array (byte[]).
+
+      Get-SPServerVersion       Gets the version number of the SharePoint
+                                server and guesses what product release it
+                                belongs to.
+
+      Clear-SPDriveCache       Discards all objects from the cache used by
+                               the particular SharePosh drive provider.
+
+      Get-SPListTemplates       Gets all list templates available on a
+                                particular web site.
+
+      Get-SPWebTemplates        Gets all site templates with the specific
+                                locale available on a particular web site.
+
+      Get-SPWebRegionalSettings Gets language, time zone and other regional
+                                settings of a particular web site.
+
+SEE ALSO
+    SharePosh
