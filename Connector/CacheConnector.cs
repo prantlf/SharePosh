@@ -123,11 +123,50 @@ namespace SharePosh
             return true;
         }
 
-        // Implementation of the CachingConnector.
+        // Implementation of the CachingConnector and helper caching methods.
 
         public override void ClearCache(bool includeRoot) {
             Cache.Invalidate();
             base.ClearCache(includeRoot);
+        }
+
+        void RemoveCachedItem(ItemInfo item) {
+            Cache.RemoveObject(item);
+            var path = PathUtility.GetParentPath(item.Path);
+            Info container;
+            if (!path.IsEmpty() && Cache.TryGetObject(path, out container)) {
+                var list = container as ListInfo;
+                var folder = container as FolderInfo;
+                var items = list != null ? list.ChildItems : folder.ChildItems;
+                if (items != null) {
+                    items = items.Where(current => current.ID != item.ID).ToList();
+                    if (list != null)
+                        list.ChildItems = items;
+                    else
+                        folder.ChildItems = items;
+                }
+            }
+        }
+
+        void AddCachedItem(ItemInfo item, ItemContainerInfo container = null) {
+            if (container == null) {
+                var path = PathUtility.GetParentPath(item.Path);
+                Info parent;
+                if (!path.IsEmpty() && Cache.TryGetObject(path, out parent))
+                    container = (ItemContainerInfo) parent;
+            }
+            if (container != null) {
+                var list = container as ListInfo;
+                var folder = container as FolderInfo;
+                var items = list != null ? list.ChildItems : folder.ChildItems;
+                if (items != null) {
+                    items = items.Concat(new[] { item }).ToList();
+                    if (list != null)
+                        list.ChildItems = items;
+                    else
+                        folder.ChildItems = items;
+                }
+            }
         }
 
         Cache Cache {
@@ -162,6 +201,8 @@ namespace SharePosh
             if (web == null)
                 throw new ArgumentNullException("web");
             Cache.RemoveObject(web);
+            if (web.Webs != null)
+                web.Webs = web.Webs.Where(item => item.ID != web.ID).ToList();
             RemoveWebDirectly(web);
         }
 
@@ -177,7 +218,7 @@ namespace SharePosh
         public void RemoveItem(ItemInfo item) {
             if (item == null)
                 throw new ArgumentNullException("item");
-            Cache.RemoveObject(item);
+            RemoveCachedItem(item);
             RemoveItemDirectly(item);
         }
 
@@ -187,22 +228,27 @@ namespace SharePosh
             if (string.IsNullOrEmpty(newName))
                 throw new ArgumentException("The new item name must not be empty.");
             Cache.RemoveObject(item);
-            return RenameItemDirectly(item, newName);
+            var renamed = RenameItemDirectly(item, newName);
+            AddCachedItem(renamed);
+            return renamed;
         }
 
         public ItemInfo CopyItem(ItemInfo item, ItemContainerInfo target,
                                          bool recurse, string newName) {
             if (target == null)
                 throw new ArgumentNullException("target");
-            Cache.RemoveObject(item);
-            return CopyItemDirectly(item, target, recurse, newName);
+            var copy = CopyItemDirectly(item, target, recurse, newName);
+            AddCachedItem(copy, target);
+            return copy;
         }
 
         public ItemInfo MoveItem(ItemInfo item, ItemContainerInfo target) {
             if (target == null)
                 throw new ArgumentNullException("target");
-            Cache.RemoveObject(item);
-            return MoveItemDirectly(item, target);
+            var moved = MoveItemDirectly(item, target);
+            RemoveCachedItem(item);
+            AddCachedItem(moved, target);
+            return moved;
         }
 
         public WebInfo AddWeb(WebInfo web, WebCreationParameters parameters) {
@@ -211,7 +257,10 @@ namespace SharePosh
             if (parameters == null)
                 throw new ArgumentNullException("parameters");
             parameters.Check();
-            return AddWebDirectly(web, parameters);
+            var newWeb = AddWebDirectly(web, parameters);
+            if (web.Webs != null)
+                web.Webs = web.Webs.Concat(new[] { newWeb }).ToList();
+            return newWeb;
         }
 
         public ListInfo AddList(WebInfo web, ListCreationParameters parameters) {
@@ -233,7 +282,9 @@ namespace SharePosh
                 throw new ArgumentNullException("name");
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException("The name of a new folder must not be empty.");
-            return (FolderInfo) AddFolderDirectly(container, name);
+            var folder = (FolderInfo) AddFolderDirectly(container, name);
+            AddCachedItem(folder, container);
+            return folder;
         }
 
         public ItemInfo AddItem(ItemContainerInfo container, string name) {
@@ -243,7 +294,9 @@ namespace SharePosh
                 throw new ArgumentNullException("name");
             if (name.IsEmpty())
                 throw new ArgumentException("The name of a new item must not be empty.");
-            return AddItemDirectly(container, name);
+            var item = AddItemDirectly(container, name);
+            AddCachedItem(item, container);
+            return item;
         }
 
         // Abstract methods modifying the actual SharePoint objects.
@@ -286,7 +339,9 @@ namespace SharePosh
                 throw new ArgumentException("The name of a new file must not be empty.");
             if (content == null)
                 throw new ArgumentNullException("content");
-            return AddFileDirectly(container, name, content);
+            var file = AddFileDirectly(container, name, content);
+            AddCachedItem(file, container);
+            return file;
         }
 
         // Abstract methods to support the direct SharePoint content creation.
