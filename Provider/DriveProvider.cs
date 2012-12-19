@@ -322,20 +322,6 @@ namespace SharePosh
             return !string.IsNullOrEmpty(path);
         }
 
-        //protected override string MakePath(string parent, string child) {
-        //    // Workaround for the bug in PowerShell 2.0. If the Root of the drive is empty
-        //    // the tab-completion offers the complete child path instead of the child name.
-        //    if (parent == ".") {
-        //        var providerPath = SessionState.Path.CurrentLocation.ProviderPath;
-        //        if (string.IsNullOrEmpty(providerPath))
-        //            return Utility.ConvertToPSPath(Utility.JoinPath(parent, child));
-        //        if (child.StartsWithCI(providerPath + "\\"))
-        //            return Utility.ConvertToPSPath(Utility.JoinPath(parent,
-        //                child.Substring(providerPath.Length + 1)));
-        //    }
-        //    return base.MakePath(parent, child);
-        //}
-
         // Content access.
 
         public void ClearContent(string path) {
