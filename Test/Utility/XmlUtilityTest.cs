@@ -18,14 +18,14 @@
 
 using System;
 using System.Xml;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace SharePosh
 {
-    [TestClass]
+    [TestFixture]
     public class XmlUtilityTest
     {
-        [TestMethod]
+        [Test]
         public void TestThatFormatXmlValueFailsWithNull() {
             try {
                 XmlUtility.EscapeXmlValue(null);
@@ -33,14 +33,14 @@ namespace SharePosh
             } catch (ArgumentNullException) {}
         }
 
-        [TestMethod]
+        [Test]
         public void TestThatFormatXmlValueWorksWithManyValues() {
             var document = new XmlDocument();
             var element = document.CreateElement("test");
             element.InnerXml = XmlUtility.EscapeXmlValue("&<>'\"");
         }
 
-        [TestMethod]
+        [Test]
         public void TestThatFormatXPathLiteralFailsWithNull() {
             try {
                 XmlUtility.FormatXPathLiteral(null);
@@ -49,7 +49,7 @@ namespace SharePosh
         }
 
         // http://stackoverflow.com/questions/1341847/special-character-in-xpath-query
-        [TestMethod]
+        [Test]
         public void TestThatFormatXPathLiteralWorksWithManyValues() {
             foreach (string value in new[] {
                         "",                 // empty

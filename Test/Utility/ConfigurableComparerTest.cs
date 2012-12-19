@@ -18,21 +18,21 @@
 
 using System.Collections.Generic;
 using System.Globalization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace SharePosh
 {
-    [TestClass]
+    [TestFixture]
     public class ConfigurableComparerTest
     {
-        [TestMethod]
+        [Test]
         public void TestCaseInsensitiveParameters() {
             var comparer = ConfigurableComparer<string>.CaseInsensitive;
             Assert.AreEqual(CultureInfo.InvariantCulture, comparer.Culture);
             Assert.AreEqual(CompareOptions.IgnoreCase, comparer.Options);
         }
 
-        [TestMethod]
+        [Test]
         public void TestThatStringsAreEquelCaseInsensitively() {
             IEqualityComparer<string> comparer1 = new ConfigurableComparer<string>(
                 CultureInfo.InvariantCulture, CompareOptions.IgnoreCase);
@@ -45,7 +45,7 @@ namespace SharePosh
             Assert.IsTrue(comparer2.Equals(12, 12));
         }
 
-        [TestMethod]
+        [Test]
         public void TestThatStringsAreEquelCaseSensitively() {
             IEqualityComparer<string> comparer1 = new ConfigurableComparer<string>(
                 CultureInfo.InvariantCulture, CompareOptions.None);

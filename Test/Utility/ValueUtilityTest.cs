@@ -17,21 +17,21 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace SharePosh
 {
-    [TestClass]
+    [TestFixture]
     public class ValueUtilityTest
     {
-        [TestMethod]
+        [Test]
         public void TestGetLookupValue() {
             Assert.AreEqual("value", ValueUtility.GetLookupValue("1;#value"));
             Assert.AreEqual("", ValueUtility.GetLookupValue("1;#"));
             Assert.AreEqual("value", ValueUtility.GetLookupValue("value"));
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetBool() {
             Assert.AreEqual(true, ValueUtility.GetBool("true"));
             Assert.AreEqual(true, ValueUtility.GetBool("TRUE"));
@@ -39,7 +39,7 @@ namespace SharePosh
             Assert.AreEqual(false, ValueUtility.GetBool("FALSE"));
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetInt() {
             Assert.AreEqual(12, ValueUtility.GetInt("12"));
             try {
@@ -56,7 +56,7 @@ namespace SharePosh
             } catch {}
         }
 
-        [TestMethod]
+        [Test]
         public void TestTryGetInt() {
             int result;
             Assert.IsTrue(ValueUtility.TryGetInt("12", out result));
@@ -66,7 +66,7 @@ namespace SharePosh
             Assert.IsFalse(ValueUtility.TryGetInt("A", out result));
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetDate() {
             Assert.AreEqual(new DateTime(2012, 11, 30), ValueUtility.GetDate("2012-11-30"));
             Assert.AreEqual(new DateTime(2012, 11, 30, 01, 02, 03),
@@ -81,7 +81,7 @@ namespace SharePosh
             } catch {}
         }
 
-        [TestMethod]
+        [Test]
         public void TestTryGetDate() {
             DateTime result;
             Assert.IsTrue(ValueUtility.TryGetDate("2012-11-30", out result));

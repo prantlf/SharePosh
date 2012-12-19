@@ -17,24 +17,24 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace SharePosh
 {
-    [TestClass]
+    [TestFixture]
     public class PathUtilityTest
     {
-        [TestMethod]
+        [Test]
         public void TestConvertToPSPath() {
             Assert.AreEqual(@"test\test\test\", PathUtility.ConvertToPSPath(@"test\test/test/"));
         }
 
-        [TestMethod]
+        [Test]
         public void TestNormalizePath() {
             Assert.AreEqual(@"t est/test/ test", PathUtility.NormalizePath(@"/ t est/test\ test\ "));
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetUrlPath() {
             Assert.AreEqual("", PathUtility.GetUrlPath("http://host", false));
             Assert.AreEqual("", PathUtility.GetUrlPath("http://host/", false));
