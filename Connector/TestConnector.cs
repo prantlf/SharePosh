@@ -48,7 +48,7 @@ namespace SharePosh
         }
 
         protected override XmlElement QueryWeb(string path) {
-            var source = Site.DocumentElement;
+            var source = GetSite();
             if (path.Any())
                 foreach (var name in PathUtility.SplitPath(path)) {
                     source = source.SelectElement(string.Format("Web[@Name={0}]",
@@ -229,11 +229,17 @@ namespace SharePosh
         // in the in-memory XML document initialized from assembly resources.
 
         protected override void RemoveWebDirectly(WebInfo web) {
-            GetWebXml(web).Remove();
+            var source = GetWebXml(web);
+            var parent = (XmlElement) source.ParentNode;
+            source.Remove();
+            SaveSite(parent);
         }
 
         protected override void RemoveListDirectly(ListInfo list) {
-            GetListXml(list).Remove();
+            var source = GetListXml(list);
+            var parent = (XmlElement) source.ParentNode;
+            source.Remove();
+            SaveSite(parent);
         }
 
         protected override void RemoveItemDirectly(ItemInfo item) {
@@ -242,16 +248,19 @@ namespace SharePosh
             // computed from the most recent modification time of any child item we don't set it.
             var source = GetItemXml(item);
             var date = DateForNow;
-            ((XmlElement) source.ParentNode).SetAttribute("Modified", date);
+            var parent = (XmlElement) source.ParentNode;
+            parent.SetAttribute("Modified", date);
             var list = source.SelectElement("ancestor::List");
             list.SetAttribute("Deleted", date);
             source.Remove();
+            SaveSite(parent);
         }
 
         protected override XmlElement RawRenameItem(ItemInfo item, string newName) {
             var source = GetItemXml(item);
             RenameItemXml(source, newName);
             TouchItemXml(source);
+            SaveSite(source);
             return source;
         }
 
@@ -264,6 +273,7 @@ namespace SharePosh
             var lastID = GetLastItemID(item.List);
             InitializeItemClones(source, ref lastID);
             PlaceItemXml(source, target, newName);
+            SaveSite(source);
             return source;
         }
 
@@ -283,6 +293,7 @@ namespace SharePosh
             }
             TouchItemXml(parent);
             TouchItemXml(target);
+            SaveSite(target);
             return source;
         }
 
@@ -316,6 +327,7 @@ namespace SharePosh
                 source.SetAttribute("Presence", parameters.Presence.Value.ToStringI());
             source.SetAttribute("Created", DateForNow);
             target.AppendChild(source);
+            SaveSite(target);
             return source;
         }
 
@@ -335,15 +347,20 @@ namespace SharePosh
             source.SetAttribute("Template", parameters.Template.ToStringI());
             source.SetAttribute("Created", DateForNow);
             target.AppendChild(source);
+            SaveSite(target);
             return source;
         }
 
         protected override XmlElement RawAddFolder(ItemContainerInfo container, string name) {
-            return RawAddItem(container, name, ItemType.Folder);
+            var item = RawAddItem(container, name, ItemType.Folder);
+            SaveSite(item);
+            return item;
         }
 
         protected override XmlElement RawAddItem(ItemContainerInfo container, string name) {
-            return RawAddItem(container, name, ItemType.Common);
+            var item = RawAddItem(container, name, ItemType.Common);
+            SaveSite(item);
+            return item;
         }
 
         XmlElement RawAddItem(ItemContainerInfo container, string name, ItemType type) {
@@ -446,6 +463,7 @@ namespace SharePosh
             var target = GetItemXml(file);
             SaveContent(target, content);
             TouchItemXml(target);
+            SaveSite(target);
         }
 
         // Implementation of the ContentConnector interface support from the parent class.
@@ -454,6 +472,7 @@ namespace SharePosh
                                                  Stream content) {
             var source = RawAddItem(container, name, ItemType.File);
             SaveContent(source, content);
+            SaveSite(source);
             return source;
         }
 
@@ -500,14 +519,36 @@ namespace SharePosh
         }
 
         // Loads the XML file simulating content of a SharePoint web site from the assembly
-        // resource Resources/FakeSite.xml.
-        static TestConnector() {
-            var assembly = Assembly.GetExecutingAssembly();
-            using (var stream = assembly.GetManifestResourceStream(
-                                                "SharePosh.Resources.FakeSite.xml"))
-                Site.Load(stream);
+        // resource Resources/FakeSite.xml or from the specified WebUrl if it points to the
+        // local file system. The file content is not kept cached in memory to allow content
+        // changes outside this connector.
+        XmlElement GetSite() {
+            if (WebUrl.StartsWithCI("file:")) {
+                Log.Verbose("Loading the file {0}.", WebUrl);
+                var site = new XmlDocument();
+                site.Load(WebUrl);
+                return site.DocumentElement;
+            }
+            if (immutableSite == null) {
+                Log.Verbose("Loading the content from resources.");
+                var assembly = Assembly.GetExecutingAssembly();
+                var site = new XmlDocument();
+                using (var stream = assembly.GetManifestResourceStream(
+                                        "SharePosh.Resources.FakeSite.xml"))
+                    site.Load(stream);
+                immutableSite = site.DocumentElement;
+            }
+            return immutableSite;
         }
 
-        static readonly XmlDocument Site = new XmlDocument();
+        void SaveSite(XmlElement target) {
+            if (WebUrl.StartsWithCI("file:")) {
+                var file = WebUrl.Substring(5).TrimStart('/');
+                Log.Verbose("Saving the file {0}.", file);
+                target.OwnerDocument.Save(file);
+            }
+        }
+
+        XmlElement immutableSite;
     }
 }
