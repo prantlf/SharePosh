@@ -523,10 +523,22 @@ namespace SharePosh
         // local file system. The file content is not kept cached in memory to allow content
         // changes outside this connector.
         XmlElement GetSite() {
-            if (WebUrl.StartsWithCI("file:")) {
-                Log.Verbose("Loading the file {0}.", WebUrl);
+            var filePath = PathUtility.TryGetFilePathFromUrl(WebUrl);
+            if (filePath != null) {
+                if (!File.Exists(filePath)) {
+                    string content;
+                    Log.Verbose("Loading the empty content from resources.");
+                    var assembly = Assembly.GetExecutingAssembly();
+                    using (var stream = assembly.GetManifestResourceStream(
+                                            "SharePosh.Resources.NewSite.xml"))
+                        using (var reader = new StreamReader(stream))
+                            content = reader.ReadToEnd();
+                    Log.Verbose("Creating the empty file {0}.", filePath);
+                    File.WriteAllText(filePath, string.Format(content, Guid.NewGuid()));
+                }
+                Log.Verbose("Loading the file {0}.", filePath);
                 var site = new XmlDocument();
-                site.Load(WebUrl);
+                site.Load(filePath);
                 return site.DocumentElement;
             }
             if (immutableSite == null) {
@@ -542,10 +554,10 @@ namespace SharePosh
         }
 
         void SaveSite(XmlElement target) {
-            if (WebUrl.StartsWithCI("file:")) {
-                var file = WebUrl.Substring(5).TrimStart('/');
-                Log.Verbose("Saving the file {0}.", file);
-                target.OwnerDocument.Save(file);
+            var filePath = PathUtility.TryGetFilePathFromUrl(WebUrl);
+            if (filePath != null) {
+                Log.Verbose("Saving the file {0}.", filePath);
+                target.OwnerDocument.Save(filePath);
             }
         }
 

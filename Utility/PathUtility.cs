@@ -17,6 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -172,6 +173,21 @@ namespace SharePosh
             if (startWithSlash)
                 return slash > 0 ? url.Substring(slash) : "/";
             return slash > 0 ? url.Substring(slash + 1) : "";
+        }
+
+        // Trims off the starting protocol and converts slashes to backslashes making a local
+        // file system path from the original file://... URL. If the URL is no file://... URL
+        // or the file path is not rooted null is returned.
+        // For example, it returns "c:\test" from "file://c:/test".
+        public static string TryGetFilePathFromUrl(string url) {
+            if (url == null)
+                throw new ArgumentNullException("url");
+            if (url.StartsWithCI("file:")) {
+                var path = url.Substring(5).TrimStart('/');
+                if (Path.IsPathRooted(path))
+                    return ConvertToPSPath(path);
+            }
+            return null;
         }
     }
 }

@@ -211,6 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Module\about_SharePosh.help.txt" />
+    <EmbeddedResource Include="Resources\NewSite.xml" />
     <None Include="Web References\SOAP.Dws\Dws.disco" />
     <EmbeddedResource Include="Resources\ServerReleases.xml" />
     <EmbeddedResource Include="Resources\FakeSite.xml" />
