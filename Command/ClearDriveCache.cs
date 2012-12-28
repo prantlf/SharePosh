@@ -26,7 +26,7 @@ namespace SharePosh
     [Cmdlet(VerbsCommon.Clear, "SPDriveCache")]
     public class ClearDrivecache : LoggingCmdlet
     {
-        [Parameter(Mandatory = true,
+        [Parameter(Mandatory = true, Position = 1,
             HelpMessage = "SharePosh drive. " +
                 "Provide an instance returned by Get-PSProvider or just its name.")]
         public DrivePipeInput Drive { get; set; }
