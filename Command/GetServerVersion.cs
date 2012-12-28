@@ -93,9 +93,9 @@ namespace SharePosh
                                 OrderByDescending(item => item.Key);
             KeyValuePair<Version, string> result = releases.First();
             foreach (var release in releases) {
+                result = release;
                 if (release.Key < version)
                     break;
-                result = release;
             }
             return result;
         }
@@ -109,9 +109,9 @@ namespace SharePosh
                                 OrderBy(item => item.Key);
             KeyValuePair<Version, string> result = releases.First();
             foreach (var release in releases) {
+                result = release;
                 if (release.Key > version)
                     break;
-                result = release;
             }
             return result;
         }
