@@ -601,7 +601,7 @@ namespace SharePosh
 
         // Helpers getting network communication objects.
 
-        WebClient GetClient() {
+        protected virtual WebClient GetClient() {
             var client = new WebClient();
             if (Drive.Credential != null)
                 client.Credentials = Drive.Credential.GetCredentials();
@@ -610,8 +610,8 @@ namespace SharePosh
             return client;
         }
 
-        T GetService<T>(string url) where T : SoapHttpClientProtocol, new() {
-            // Connecting and authentifying to a service takes some time. Better to reuse the
+        protected T GetService<T>(string url) where T : SoapHttpClientProtocol, new() {
+            // Connecting and authenticating to a service takes some time. Better to reuse the
             // service for future calls. Service URL must be the same which means that the web
             // URL and the service type must be the same.
             var name = typeof(T).Name;
@@ -621,11 +621,13 @@ namespace SharePosh
                 return (T) service;
             Log.Verbose("Initializing {0} service for /{1}.", name, url);
             url = PathUtility.JoinPath(Drive.WebUrl, url);
-            service = GetService<T>(url, Drive.Credential, Drive.Timeout);
-            if (Drive.Timeout > 0)
-                service.Timeout = Drive.Timeout;
+            service = CreateService<T>(url);
             Services.Add(key, service);
             return (T) service;
+        }
+
+        protected virtual T CreateService<T>(string url) where T : SoapHttpClientProtocol, new() {
+            return GetService<T>(url, Drive.Credential, Drive.Timeout);
         }
 
         internal static T GetService<T>(string url, PSCredential credential, int timeout)

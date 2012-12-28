@@ -70,6 +70,10 @@ namespace SharePosh
                 "If not provided the current user will be used."), Credential]
         public PSCredential Credential { get; set; }
 
+        [Parameter(Mandatory = false, ParameterSetName = "ExplicitWebSpecification",
+            HelpMessage = "Turns on the Office 365 (SharePoint Online) authentication mode.")]
+        public SwitchParameter Office365 { get; set; }
+
         // This property should be used to get the web site used by the cmdlet. If the web site
         // URL was not specified explicitly the root web URL of the drive will be returned.
         protected string ActualWebUrl {
@@ -82,16 +86,23 @@ namespace SharePosh
             string webUrl;
             PSCredential credential;
             int timeout;
+            bool office365;
             if (Drive != null) {
                 webUrl = DriveInfo.WebUrl;
                 credential = DriveInfo.Credential;
                 timeout = DriveInfo.Timeout;
+                office365 = DriveInfo.ConnectorType.StartsWithII("Office365");
             } else {
                 webUrl = WebUrl;
                 credential = Credential;
                 timeout = 0;
+                office365 = Office365;
             }
             WriteVerbose("Connecting to {0}.", webUrl);
+            if (office365) {
+                var cookies = Office365CookieHelper.GetCookies(webUrl, credential);
+                return Office365SOAPConnector.GetService<T>(webUrl, cookies, timeout);
+            }
             return SOAPConnector.GetService<T>(webUrl, credential, timeout);
         }
 

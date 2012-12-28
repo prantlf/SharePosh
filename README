@@ -17,6 +17,13 @@ DESCRIPTION
   both WSS and MOSS (called Foundation and Server in newer product versions).
   Just creating a new web site works only with SharePoint 2013.
 
+REQUIREMENTS
+  This module runs on PowerShell 2.0 at least. PowerShell 3.0 is recommended
+  because it fixes tab-completion problems. Minimum version of the Microsoft
+  .NET Framework is 3.5. If you want to access Office 365 web sites you must
+  install the WIF (Windows Identity Framework) runtime; you can download it
+  from http://www.microsoft.com/en-us/download/details.aspx?id=17331.
+
 INSTALLATION
   Building the project will produce a folder SharePosh in bin/Debug or
   bin/Release according to your configuration selection. Copy this folder

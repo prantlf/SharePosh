@@ -12,6 +12,7 @@
     <AssemblyName>SharePosh</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -37,6 +40,7 @@
     <AssemblyOriginatorKeyFile>SharePosh.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Configuration.Install" />
@@ -45,11 +49,18 @@
     <Reference Include="System.Management.Automation" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\ClearDriveCache.cs" />
     <Compile Include="Connector\CacheConnector.cs" />
+    <Compile Include="Connector\Office365CookieHelper.cs" />
+    <Compile Include="Connector\MsOnlineClaimsHelper.cs" />
+    <Compile Include="Connector\Office365SOAPConnector.cs" />
     <Compile Include="Connector\Info.cs" />
+    <Compile Include="Connector\WcfClientContracts.cs" />
     <Compile Include="Utility\ConfigurableComparer.cs" />
     <Compile Include="Connector\Connector.cs" />
     <Compile Include="Provider\ContentWriter.cs" />
@@ -307,7 +318,6 @@
       <CachedSettingsPropName>SharePosh_SOAP_Webs_Webs</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /y/i "$(TargetDir)SharePosh.dll" "$(TargetDir)SharePosh\"

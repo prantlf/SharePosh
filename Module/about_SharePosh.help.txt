@@ -7,6 +7,8 @@ SHORT DESCRIPTION
 LONG DESCRIPTION
     SharePosh consists of a PowerShell drive provider for SharePoint content and a set of cmdlets performing related tasks. The provider supports navigation starting on SharePoint web site and following to subsites, lists, folders, files or common list items. Reading and writing of file version content is supported. Getting values of list item is supported, setting values is in development. The provider and the cmdlets use web services to communicate with the SharePoint server. Most functionality is supported with all SharePoint versions 2007, 2010 and 2013 and with both WSS and MOSS (called Foundation and Server in newer product versions). Just creating a new web site works only with SharePoint 2013.
 
+    This module runs on PowerShell 2.0 at least. PowerShell 3.0 is recommended because it fixes tab-completion problems. Minimum version of the Microsoft .NET Framework is 3.5. If you want to access Office 365 web sites you must install the WIF (Windows Identity Framework) runtime; you can download it from http://www.microsoft.com/en-us/download/details.aspx?id=17331.
+
   SharePosh Cmdlets
 
       Cmdlet (Alias)            Description
