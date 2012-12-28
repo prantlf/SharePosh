@@ -61,6 +61,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Utility\ConfigurableComparerTest.cs" />
+    <Compile Include="Utility\StringUtilityTest.cs" />
     <Compile Include="Utility\PathUtilityTest.cs" />
     <Compile Include="Utility\ValueUtilityTest.cs" />
     <Compile Include="Utility\XmlUtilityTest.cs" />
