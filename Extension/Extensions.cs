@@ -45,7 +45,7 @@ namespace SharePosh
     static class StringExtension
     {
         public static bool IsEmpty(this string s) {
-            return s.Length > 0;
+            return s.Length == 0;
         }
 
         public static bool StartsWith(this string s, char c) {
