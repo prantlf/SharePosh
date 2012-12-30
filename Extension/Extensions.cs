@@ -76,38 +76,26 @@ namespace SharePosh
         }
 
         public static bool StartsWithCI(this string hay, string needle) {
-            if (hay == null)
-                throw new ArgumentNullException("hay");
             return hay.StartsWith(needle, StringComparison.CurrentCultureIgnoreCase);
         }
 
         public static bool StartsWithII(this string hay, string needle) {
-            if (hay == null)
-                throw new ArgumentNullException("hay");
             return hay.StartsWith(needle, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public static bool EndsWithCI(this string hay, string needle) {
-            if (hay == null)
-                throw new ArgumentNullException("hay");
             return hay.EndsWith(needle, StringComparison.CurrentCultureIgnoreCase);
         }
 
         public static bool EndsWithII(this string hay, string needle) {
-            if (hay == null)
-                throw new ArgumentNullException("hay");
             return hay.EndsWith(needle, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public static int IndexOfCI(this string hay, string needle) {
-            if (hay == null)
-                throw new ArgumentNullException("hay");
             return hay.IndexOf(needle, StringComparison.CurrentCultureIgnoreCase);
         }
 
         public static int IndexOfII(this string hay, string needle) {
-            if (hay == null)
-                throw new ArgumentNullException("hay");
             return hay.IndexOf(needle, StringComparison.InvariantCultureIgnoreCase);
         }
 
